@@ -22,7 +22,7 @@ import java.io.IOException;
    - localhost:8080/day002/servlet <- 이렇게 크롬에 쳐보기
    - 사용처: Spring 아닌 옛날 코드(레거시 코드) 사용하는 회사는 이렇게 하기도 함. 지금처럼 동작 구조 공부할 때도 좋음.
 */
-@WebServlet("/day002/servlet") // --> localhost: 8080/day00/servlet
+@WebServlet("/day002/servlet") // --> localhost: 8080/day00/servlet (@어노테이션이라서 ; 안 함. 까먹지 말기.)
 public class ServletController extends HttpServlet {
 
     // * 이건 순수 자바의 메소드/함수

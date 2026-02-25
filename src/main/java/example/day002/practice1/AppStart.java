@@ -1,5 +1,6 @@
 package example.day002.practice1;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.server.servlet.context.ServletComponentScan;
 
@@ -7,6 +8,6 @@ import org.springframework.boot.web.server.servlet.context.ServletComponentScan;
 @ServletComponentScan
 public class AppStart {
     public static void main(String[] args) {
-        System.out.println(AppStart.class);
+        SpringApplication.run( AppStart.class );
     }
 }

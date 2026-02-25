@@ -22,3 +22,5 @@ public class AppStart {
         System.out.println(AppStart.class); // AppStart.class = class example.day002.servlet.AppStart
     }
 }
+
+// 탈란드 API Content-type을 따로 설정하지 않아서(ppt참고) response는 메모장 형식으로 다운 받아서 확인해야 함. (하단 BODY의 Click here)

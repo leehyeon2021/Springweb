@@ -36,15 +36,16 @@ public class Servlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        String value = req.getParameter("value");
-        int value2 = Integer.parseInt( value );
-        resp.getWriter().println(value2 / 2);
+        int value = Integer.parseInt( req.getParameter("value"));
+        resp.getWriter().println(value / 2);
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        String value = req.getParameter("value");
-        int value2 = Integer.parseInt( value );
-        resp.getWriter().println(value2 % 2);
+        int value = Integer.parseInt( req.getParameter("value"));
+        resp.getWriter().println(value % 2);
     }
+
+    // CRUD 다 주소는 'http://localhost:8080/practice1?value=10'로 같음.
+    // 서블릿 하나 당 주소는 하나 ?
 }

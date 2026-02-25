@@ -12,8 +12,8 @@ import java.io.IOException;
 - 서블릿 생성 방법
    1. HttpServlet으로 부터 상속 받기
    2. 서블릿 클래스 위에 @WebServlet(), 서블릿의 주소(URL) 설정하기
-   3.
-   4.
+   3. AppStart 클래스 위에 @ServletComponentScan
+   4. doGet , doPost , doPut , doDelete 메소드 오버라이딩 한다.
  */
 
 @WebServlet("/practice1")

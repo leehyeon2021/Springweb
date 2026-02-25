@@ -1,5 +1,7 @@
 package example.day002.practice2;
 
+// [문제 1]
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

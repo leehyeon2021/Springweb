@@ -7,7 +7,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/day003/task")
 public class AxiosController {
-
     // 4. AXIOS 사용법
     // 1.
     @GetMapping

@@ -40,7 +40,7 @@ public class Exam3 {
 // 롬복 라이브러리에 뭐 있을까요~
 @NoArgsConstructor  // 컴파일(코드번역될때) 기본생성자 코드 자동 생성
 @AllArgsConstructor // 컴파일(코드번역될때) 전체매개변수생성자 코드 자동 생성
-@RequiredArgsConstructor // final 매개변수 생성자 자동 생성 (@Data에 있음)
+// @RequiredArgsConstructor // final 매개변수 생성자 자동 생성 (@Data에 있음)
 @Getter // 컴파일(코드번역될때) getter 메소드 제공 (@Data에 있음)
 @Setter // 컴파일(코드번역될때) setter 메소드 제공 (@Data에 있음)
 @ToString // 컴파일(코드번역될때) ToString 메소드 제공 (@Data에 있음)

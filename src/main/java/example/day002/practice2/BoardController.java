@@ -41,7 +41,7 @@ public class BoardController {
     // 4. 게시물 삭제
     @DeleteMapping
     public boolean boardDelete( @RequestParam int bno ){
-        // removeIf:
+        // removeIf: ArrayList에서. 조건 충족하는 list 요소 삭제 / 반환: true/false
         if(list.removeIf(board -> board.getBno() == bno) ){
             return true;
         }

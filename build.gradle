@@ -18,11 +18,13 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-    runtimeOnly 'com.mysql:mysql-connector-j'
-    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+dependencies { // 외부 라이브러리들을 추가하는 곳. 추가된 라이브러리는 자동으로 설치된다.
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc' // 1. SpringBoot Web. 지우면 안 됨
+    runtimeOnly 'com.mysql:mysql-connector-j'      // 2. mySQL
+    // test는 지워도 된다고 지우심
+    compileOnly 'org.projectlombok:lombok'         // 3. Lombok
+    annotationProcessor 'org.projectlombok:lombok' // 4. Lombok
+
 }
 
 tasks.named('test') {

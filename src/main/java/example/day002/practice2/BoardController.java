@@ -35,7 +35,12 @@ public class BoardController {
     // 3. 게시물 개별조회
     @GetMapping("/detail")
     public BoardDto boardDetail( @RequestParam int bno ){
-        return list.get(bno-1);
+        for (BoardDto board : list) {
+            if (board.getBno() == bno) {
+                return board;
+            }
+        }
+        return null;
     }
 
     // 4. 게시물 삭제

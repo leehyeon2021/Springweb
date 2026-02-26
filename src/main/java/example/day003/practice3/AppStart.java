@@ -17,4 +17,11 @@ public class AppStart {
     @RestController
     @RequestMapping("/attendance")
 4. AttendanceDto 클래스 준비
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Data
+    @Builder
+5. 명세서 기준으로 기능 구현
+6. Talend API 이용하여 기능 테스트 확인.
+7. 이후에 프론트! axios!
  */

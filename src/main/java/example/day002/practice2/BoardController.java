@@ -41,23 +41,23 @@ public class BoardController {
     // 4. 게시물 삭제
     @DeleteMapping
     public boolean boardDelete( @RequestParam int bno ){
-        try{
-            list.remove(bno-1);
+        // removeIf:
+        if(list.removeIf(board -> board.getBno() == bno) ){
             return true;
-        }catch (Exception e){
-            return false;
         }
+            return false;
     }
 
     // 5. 게시물 수정
     @PutMapping
     public boolean boardUpdate( @RequestBody BoardDto boardDto ){ // @RequestParam vs. @RequestBody -> DTO라서 body로 받아야 함.
-        try{
-            list.set(boardDto.getBno()-1 , boardDto );
-            return true;
-        }catch (Exception e){
-            return false;
-        }
+        for(int i = 0; i<list.size();i++){
+                if(list.get(i).getBno() == boardDto.getBno()){
+                    list.set(i, boardDto);
+                    return true;
+                }
+            }
+        return false;
     }
 
 

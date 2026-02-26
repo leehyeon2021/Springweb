@@ -96,8 +96,11 @@ class SubClaas extends SuperClass{  // 하위클래스
        개발자 입장                        스프링 프레임워크
        @RestController -------------> @RestController 추상화한 구현체(클래스)들이 자동 실행 ( 동적 로딩 )
 ```
-   - 인터페이스란? 사용자와 시스템 사이에서 중개 해주는 애
+   - 인터페이스란?: 사용자와 시스템 사이에서 중개 해주는 애
 
+6. 동적 로딩이란?
+: 리플렉션, 실행 중에 클래스를 읽어와서 객체를 생성하는 과정.
+   - 예시)성 `Class.forName( "com.mysql.cj.jdbc.Driver)`: jdbc연동에 필요한 Driver객체를 생성한다.
 
  */
 

@@ -29,7 +29,7 @@ AXIOS (에이시오스)
 4. 사용법  */
 // 1. `axios.HTTP메소드명( "통신할 주소" )` vs. 탈렌드API
 axios.get("http://localhost:8080/day003/task") // post , put , delete 같은 거.
-// 2. `axios.HTTP메소드명( "통신할 주소" ).then( ( response ) => { response.data }; )`
+// 2. `axios.HTTP메소드명( "통신할 주소" ).then( ( response ) => { response.data } )`
 // response.data 하면 데이터를 확인 가능. response 하면 데이터 송수신 과정 다 확인 가능.
       // +) 프론트서버와 벡엔드서버가 같다면? -> 도메인 생략 가능!
 axios.delete("/day003/task?name=홍길동").then( (response) => { console.log( response ); } )

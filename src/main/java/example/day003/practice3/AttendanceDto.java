@@ -14,5 +14,4 @@ public class AttendanceDto {
     private String studentName;
     private String date;
     private String status;
-
 }

@@ -31,7 +31,6 @@ public class AttendanceController {
     // +) 2. Build 써보기
     @GetMapping("/builder")
     public List<AttendanceDto> GET(){
-        List<AttendanceDto> list = new ArrayList<>();
         list.add( new AttendanceDto(1 , "동그라미", "2026-02-26" , "출석"));
         list.add( AttendanceDto.builder().status("출석").studentName("세모").ano(2).date("2026-02-26").build());
         return list;
@@ -40,9 +39,9 @@ public class AttendanceController {
     // 3. 출석 개별조회
     @GetMapping("/detail")
     public AttendanceDto GET2( @RequestParam int ano ){
-        for( AttendanceDto attendance : list ){
-            if(attendance.getAno() == ano){
-                return attendance;
+        for( AttendanceDto A : list ){
+            if(A.getAno() == ano){
+                return A;
             }
         }
         return null;

@@ -15,6 +15,9 @@ public class AttendanceController {
     // 1. 출석 등록
     @PostMapping
     public boolean POST(@RequestBody AttendanceDto attendanceDto){
+        list.add( new AttendanceDto(2 , "동그라미", "2026-02-26" , "출석"));
+        list.add( AttendanceDto.builder().status("출석").studentName("세모").ano(3).date("2026-02-26").build());
+
         try{
             list.add(attendanceDto);
             return true;
@@ -23,16 +26,9 @@ public class AttendanceController {
         }
     }
 
-    // 2. 출석 전체조회
+    // 2. 출석 전체조회 (Build 써보기)
     @GetMapping
     public List<AttendanceDto> GET1(){
-        return list;
-    }
-    // +) 2. Build 써보기
-    @GetMapping("/builder")
-    public List<AttendanceDto> GET(){
-        list.add( new AttendanceDto(1 , "동그라미", "2026-02-26" , "출석"));
-        list.add( AttendanceDto.builder().status("출석").studentName("세모").ano(2).date("2026-02-26").build());
         return list;
     }
 

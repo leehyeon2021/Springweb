@@ -18,4 +18,11 @@ public class TestController {
         return members;
     }
 
+    // 앞으로 이런 거 한대 (원래 오류 남)
+    @GetMapping("/test2")
+    public boolean saveMember(){
+        boolean result = testService.saveMember();
+        return result;
+    }
+
 }

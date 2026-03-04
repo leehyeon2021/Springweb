@@ -1,10 +1,7 @@
 package example.day004.ch3;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 // SpringBoot 교재 p.86 단계.3
 @NoArgsConstructor( access = AccessLevel.PROTECTED ) // 빈생성자(자동생성)에 권한 설정(protected).

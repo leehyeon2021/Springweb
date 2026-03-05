@@ -1,10 +1,7 @@
 package example.day006.practice6;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity @Table(name="movie")
 @AllArgsConstructor @NoArgsConstructor @Data @Builder
@@ -29,7 +26,8 @@ public class MovieEntity extends BaseTime{
     // Entity --> Dto
     public MovieDto toDto(){
         return MovieDto.builder()
-                .movieid(this.movieid).title(this.title).director(this.director).releasedate(this.releasedate).rating(this.rating).createDate(getCreateDate().toString()).updateDate(getUpdateDate().toString())
+                .movieid(this.movieid).title(this.title).director(this.director).releasedate(this.releasedate).rating(this.rating)
+                .createDate(getCreateDate().toString()).updateDate(getUpdateDate().toString())
                        .build();
     }
 

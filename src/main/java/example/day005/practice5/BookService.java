@@ -1,6 +1,7 @@
 package example.day005.practice5;
 
 import jakarta.transaction.Transactional;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +14,26 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
+    // 주석 써보기
+
     // 도서 등록
-    public boolean bAdd( BookDto bookDto ){
-        BookEntity bookEntity = new BookEntity();
-        bookEntity.setBname( bookDto.getBname() );
-        bookEntity.setBpub( bookDto.getBpub() );
-        bookEntity.setBwriter( bookDto.getBwriter() );
+    public boolean bAdd(@NonNull BookDto bookDto ){
+        // 1. Dto -> Entity
+//        BookEntity bookEntity = new BookEntity();
+//        bookEntity.setBname( bookDto.getBname() );
+//        bookEntity.setBpub( bookDto.getBpub() );
+//        bookEntity.setBwriter( bookDto.getBwriter() );
+            // 빌더 패턴 써보기! (Entity로 가고 있어요~ Entity에 @Builder가 있어야 해요~)
+        BookEntity bookEntity = BookEntity.builder()
+                .bname(bookDto.getBname())
+                .bwriter(bookDto.getBwriter())
+                .bpub(bookDto.getBpub())
+                .build();
+        // 2. 직접적인 sql이 아닌 JPA 이용한 등록.
         BookEntity savedEntity = bookRepository.save(bookEntity);
+        // 3. 저장 여부는 pk 생성 여부로 판단.
         if( savedEntity.getBid()>=1)return true;
+        // 4. boolean 반환.
         return false;
     }
 

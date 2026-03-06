@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service @Transactional
+@Service
+@Transactional // @Transactional: 수정할 땐 setter가 여러 개 사용된다 - 여러 개를 단일 실행으로 처리해준다.
 public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
@@ -26,10 +27,7 @@ public class MovieService {
         List<MovieEntity> movieEntityList = movieRepository.findAll();
         List<MovieDto> movieDtoList = new ArrayList<>();
         movieEntityList.forEach( movieEntity -> {
-            MovieDto movieDto = new MovieDto();
-            movieDto.setMovieid(movieEntity.getMovieid());            movieDto.setTitle(movieEntity.getTitle());
-            movieDto.setDirector(movieEntity.getDirector());            movieDto.setDirector(movieEntity.getDirector());
-            movieDto.setRating(movieEntity.getRating());            movieDto.setReleasedate(movieEntity.getReleasedate());
+            MovieDto movieDto = movieEntity.toDto();
             movieDtoList.add(movieDto);
         });
         return movieDtoList;
@@ -37,26 +35,40 @@ public class MovieService {
 
 
     // 영화 개별 조회: 영화번호(movieid)를 기준으로 특정 영화 상세 정보 조회
-    public List<MovieDto> mFindOne(int movieid){
-        Optional<MovieEntity> movieEntityList = movieRepository.findById(movieid);
-        List<MovieDto> movieDtoList = new ArrayList<>();
-        if(movieEntityList.isPresent()){
-            MovieEntity list = movieEntityList.get();
-            movieDtoList.add(MovieDto.builder()
-                    .movieid(list.getMovieid()).title(list.getTitle()).director(list.getDirector()).releasedate(list.getReleasedate()).rating(list.getRating())
-                    .build());
-        }else {System.out.println("개별조회 실패 (Service)");}
-        return movieDtoList;
+    public MovieDto mFindOne(int movieid){
+        Optional<MovieEntity> optional = movieRepository.findById(movieid);
+        if(optional.isPresent()) {
+            MovieEntity movieEntity = optional.get();
+            MovieDto movieDto = movieEntity.toDto();
+            return movieDto;
+        }
+        return null;
     }
 
-    // 특정 영화 수정: 영화번호(movieid)를 기준으로 해당 영화 정보 수정. @Transactional의 역할을 서술
+    // 특정 영화 수정: 영화번호(movieid)를 기준으로 해당 영화 정보 수정.
     public boolean mUpdate(MovieDto movieDto){
+        // 1. 수정할 entity의 pk번호 확인
+        int updatePk = movieDto.getMovieid();
+        // 2. 수정할 entity 찾기 (영속성 때문에 Optional로 포장해서 반환)
+        Optional<MovieEntity> optional = movieRepository.findById(updatePk);
+        // 3. 만약에 찾은 엔티티가 존재하면 꺼내기
+        if(optional.isPresent()){
+            MovieEntity updateEntity = optional.get();
+            updateEntity.setTitle(movieDto.getTitle());
+            updateEntity.setDirector(movieDto.getDirector());
+            updateEntity.setReleasedate(movieDto.getReleasedate());
+            updateEntity.setRating(movieDto.getRating());
+            return true;
+        }
         return false;
     }
 
     // 특정 영화의 삭제: 영화번호(movieid)를 기준으로 해당 영화 삭제
     public boolean mDelete(int movieid){
-        return false;
+        try{
+            movieRepository.deleteById( movieid );
+            return true;
+        }catch (Exception e){System.out.println(e);return false;}
     }
 
 }

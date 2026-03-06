@@ -19,6 +19,6 @@ public class MovieDto {
     public MovieEntity toEntity(){
         return MovieEntity.builder()
                 .movieid(this.movieid).title(this.title).director(this.director).releasedate(this.releasedate).rating(this.rating)
-                          .build();
+                .build();
     }
 }

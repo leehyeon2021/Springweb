@@ -25,13 +25,16 @@ public class CommentService {
         if(saveEntity.getCno()>=1)return true; return false;
     }
 
-    // 댓글전체조회
-    public List<CommentDto> 조회(){
+    // 댓글전체조회 - bno를 받아와서(@RequestParam) 여기서 같은지 확인
+    public List<CommentDto> 조회(int bno){
         List<CommentEntity> entitys = commentRepository.findAll();
         List<CommentDto> list = new ArrayList<>();
         entitys.forEach(entity -> {
-            CommentDto commentDto = entity.toDto();
-            list.add(commentDto);
+            // bno(페이지)를 fk로 사용. 댓글bno와 페이지bno가 같은지 확인 후 응답!!
+            if(entity.getBno()==bno){
+                CommentDto commentDto = entity.toDto();
+                list.add(commentDto);
+            }
         });
         return list;
     }

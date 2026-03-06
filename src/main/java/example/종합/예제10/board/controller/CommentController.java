@@ -20,8 +20,8 @@ public class CommentController {
 
     // 댓글전체조회
     @GetMapping
-    public List<CommentDto> 조회(){
-        return commentService.조회();
+    public List<CommentDto> 조회(@RequestParam int bno){
+        return commentService.조회(bno);
     }
 
     // 댓글삭제

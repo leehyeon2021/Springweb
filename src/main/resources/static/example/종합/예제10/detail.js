@@ -31,7 +31,7 @@ const 개별조회 = async () => {
 
 // 개별 삭제 함수 정의
 const 개별삭제 = async ( bno ) => {
-    // 1. 현재 게시물 삭제하기 위해 션재게시물번호 확인 (bno는 매개변수 또는 쿼리스트링으로 가져오기.)
+    // 1. 현재 게시물 삭제하기 위해 현재게시물번호 확인 (bno는 매개변수 또는 쿼리스트링으로 가져오기.)
     // 2. axios 이용하여 서버에게 게시물 삭제 요청 결과받기
     const response = await axios.delete(`/board?bno=${bno}`);
     const data = response.data;
@@ -60,35 +60,39 @@ const 개별수정 = async( bno ) => {
 
 // =========================================
 
-const con = new URLSearchParams( location.search ).get( "con" );
-console.log( 'con: '+con );
-
 // 댓글전체조회
-const 댓글조회 = async (bno) =>{
+const 댓글조회 = async () =>{
     // 1. 어디에
     const body = document.querySelector("#comment");
     // 2. 무엇을
-    const response = await axios.get(`/comment`);
+    const response = await axios.get(`/comment?bno=${bno}`);
     const data = response.data;
     let html =``;
     // 3. 넣어
-    for(let i=0;i<=data.length-1;i++){
-        const list = data[i];
-        if(list.bno===bno){
-            html += `<div style="border: solid 1px black; padding: 10px;">
-                        <span style="font-size: 20px;font-weight: bold;">${list.cwriter}</span><br/>
-                        <span style="font-size: 10px;"> 작성일: ${list.createDate} | 수정일: ${list.updateDate} </span><br/>
-                        <div style="padding: 5px;">${list.ccontent}</div>
-                        <button onclick="댓글수정()" style="font-size: 10px;">댓글수정</button><button onclick="댓글삭제()" style="font-size: 10px;">댓글삭제</button>
-                    </div><br/>`;
-        }
-    }
-    body.innerHTML=html;
+    // for(let i=0;i<=data.length-1;i++){
+    //     const list = data[i];
+    //     html += `<div style="border: solid 1px black; padding: 10px;">
+    //                 <span style="font-size: 20px;font-weight: bold;">${list.cwriter}</span><br/>
+    //                 <span style="font-size: 10px;"> 작성일: ${list.createDate} | 수정일: ${list.updateDate} </span><br/>
+    //                 <div style="padding: 5px;">${list.ccontent}</div>
+    //                 <button onclick="댓글수정(${list.cno})" style="font-size: 10px;">댓글수정</button><button onclick="댓글삭제(${list.cno})" style="font-size: 10px;">댓글삭제</button>
+    //             </div><br/>`;
+    // }
+    // body.innerHTML=html;
+    // forEach문 써!!!!!!!!!
+    data.forEach(list => {
+        html += `<div style="border: solid 1px black; padding: 10px;">
+                     <span style="font-size: 20px;font-weight: bold;">${list.cwriter}</span><br/>
+                     <span style="font-size: 10px;"> 작성일: ${list.createDate} | 수정일: ${list.updateDate} </span><br/>
+                     <div style="padding: 5px;">${list.ccontent}</div>
+                     <button onclick="댓글수정(${list.cno})" style="font-size: 10px;">댓글수정</button><button onclick="댓글삭제(${list.cno})" style="font-size: 10px;">댓글삭제</button>
+                 </div><br/>`;
+    })
 }
 댓글조회();
 
 // 댓글쓰기
-const 댓글쓰기 = async (cno) =>{
+const 댓글쓰기 = async () =>{
     // 1. dom
     const writerInput=document.querySelector("#cwriter");
     const contentInput=document.querySelector("#ccontent");
@@ -96,18 +100,39 @@ const 댓글쓰기 = async (cno) =>{
     const cwriter=writerInput.value;
     const ccontent=contentInput.value;
     // 3. 객체화
-    let obj={cno,criter,ccontent};
+    let obj={cwriter,ccontent,bno};
     // 4. 요청/응답
-    const response = await axios.post();
+    const response = await axios.post(`/comment`, obj);
+    const data = response.data;
+    if(data==true){
+        alert('등록 성공'); location.reload();
+    }else{alert('등록 실패');}
 
 }
 
 // 댓글삭제
-const 댓글삭제 = async () =>{
-
+const 댓글삭제 = async (cno) =>{
+    console.log('삭제'+cno);
+    const response = await axios.delete(`/comment?cno=${cno}`);
+    const data = response.data;
+    if(data==true){
+        alert('삭제 성공'); location.reload();
+    }else{alert('삭제 실패');}
 }
 
 // 댓글수정
-const 댓글수정 = async () =>{
-
+const 댓글수정 = async (cno) =>{
+    // 1. 게시물 번호 확인
+    console.log('수정번호: '+cno);
+    // 2. 수정할 내용 입력 받기
+    const cwriter=prompt('수정할 댓글 닉네임을 입력하세요.');
+    const ccontent=prompt('수정할 댓글 내용을 입력하세요.');
+    // 3. 요청/응답
+    const obj={cno , cwriter , ccontent, bno};
+    const response = await axios.put('/comment',obj)
+    const data = response.data;
+    // 4. 결과
+    if(data==true){
+        alert('수정 성공'); location.reload();}
+    else{alert('수정 실패')}
 }

@@ -17,7 +17,7 @@ public class CommentEntity extends BaseTime{
     private String ccontent;
     @Column(name = "댓글작성자", length = 30 , nullable = false )
     private String cwriter;
-    @Column(name = "게시물번호(fk)") // 어케함
+    @Column(name = "게시물번호(fk)")
     private Integer bno;
 
     // entity -> dto

@@ -72,8 +72,13 @@ public class BoardService {
 
     // 5. 개별삭제
     public boolean 개별삭제(int bno){
-        boardRepository.deleteById(bno);
-        return true;
+        // 1. 삭제할 게시물번호가 존재하는지 확인
+        if(boardRepository.existsById(bno)){ // .existsById( pk번호 ) : 존재하면 true , 없으면 false.
+            // 2. 만약에 존재하면 삭제.
+            boardRepository.deleteById(bno);
+            return true;
+        }
+        return false;
     }
 
 }

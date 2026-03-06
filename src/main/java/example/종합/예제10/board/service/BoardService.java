@@ -3,6 +3,7 @@ package example.종합.예제10.board.service;
 import example.종합.예제10.board.dto.BoardDto;
 import example.종합.예제10.board.entity.BoardEntity;
 import example.종합.예제10.board.repository.BoardRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class BoardService {
     @Autowired private BoardRepository boardRepository;
 
@@ -49,6 +51,29 @@ public class BoardService {
             return boardDto;
         }
         return null;
+    }
+
+    // 4. 개별수정
+    public boolean 개별수정(BoardDto boardDto){
+        // 1. 수정할 게시물번호로 엔티티 찾기
+        Optional<BoardEntity> optional = boardRepository.findById(boardDto.getBno());
+        // 2. 만약에 엔티티가 존재하면
+        if(optional.isPresent()){
+            // 3. 엔티티 내 멤버변수들을 수정한다. (영속성 적용됨)
+            BoardEntity updateEntity = optional.get();
+            updateEntity.setBcontent(boardDto.getBcontent());
+            updateEntity.setBtitle(boardDto.getBtitle());
+            updateEntity.setBwriter(boardDto.getBwriter());
+            // 4. 반환한다.
+            return true;
+        }
+        return false;
+    }
+
+    // 5. 개별삭제
+    public boolean 개별삭제(int bno){
+        boardRepository.deleteById(bno);
+        return true;
     }
 
 }

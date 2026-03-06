@@ -28,4 +28,16 @@ public class BoardController {
     public BoardDto 개별조회(@RequestParam int bno){
         return boardService.개별조회(bno);
     }
+
+    // 4. 개별 수정
+    @PutMapping
+    public boolean 개별수정( @RequestBody BoardDto boardDto){
+        return boardService.개별수정(boardDto);
+    }
+
+    // 5. 개별 삭제
+    @DeleteMapping
+    public boolean 개별삭제(@RequestParam int bno){
+        return boardService.개별삭제(bno);
+    }
 }

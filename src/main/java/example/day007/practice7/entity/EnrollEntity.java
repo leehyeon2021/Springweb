@@ -8,8 +8,9 @@ import lombok.*;
 @Entity @Table(name = "enroll")
 public class EnrollEntity extends BaseTime{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "수강번호")
+    @Column(name = "enrollId")
     private Integer enrollId;
+    @Column(name = "status")
     private String status;
 
     @ManyToOne( cascade = CascadeType.ALL , fetch = FetchType.LAZY)

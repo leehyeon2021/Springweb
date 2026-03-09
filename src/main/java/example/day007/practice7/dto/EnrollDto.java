@@ -9,8 +9,10 @@ import lombok.*;
 public class EnrollDto {
     private Integer enrollId;
     private String status;
+
     private CourseEntity courseId;
     private StudentEntity studentId;
+
     private String createDate;
     private String updateDate;
 

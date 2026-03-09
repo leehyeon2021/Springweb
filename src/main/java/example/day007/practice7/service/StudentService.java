@@ -1,5 +1,6 @@
 package example.day007.practice7.service;
 
+import example.day007.practice7.dto.StudentDto;
 import example.day007.practice7.repository.StudentRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,5 +12,7 @@ public class StudentService {
     @Autowired private StudentRepository sr;
 
     // 등록기능2
-
+    public boolean sSave(StudentDto studentDto){
+     return sr.save(studentDto.toEntity()).getStudentId()>=1;
+    }
 }

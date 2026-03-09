@@ -6,8 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>react</title>
   </head>
-  <body>
+  <body> <!--이하 코드 지우면 다른 화면도 다 안 나옴! 왜? ⤵️ -->
+
+
+    <!-- 리액트가 컴파일(JSX 문법을 HTML 변환)하면 최초 랜더링되는 구역 'root' -->
+    <!-- index.html에 root는 1개: SPA 싱글 페이지 애플리케이션. html하나도 돌려쓴다! -->
+     <!-- 즉: 하나의 HTML로 JS가 가상으로 랜더링한다.-->
     <div id="root"></div>
+
+    
+    <!-- root 대입하는 코드는: main.jsx파일에서 동적처리를 한다.-->
+    <!-- main.jsx가 최초 랜더링하는 코드를 포함한다. -->
     <script type="module" src="/src/main.jsx"></script>
+
+
   </body>
 </html>

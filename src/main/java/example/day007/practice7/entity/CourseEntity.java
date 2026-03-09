@@ -8,9 +8,9 @@ import lombok.*;
 @Entity @Table(name = "course")
 public class CourseEntity extends BaseTime{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "과정번호")
+    @Column(name = "courseId")
     private Integer courseId;
-    @Column(name = "과정명")
+    @Column(name = "courseName")
     private String courseName;
 
     public CourseDto toDto(){

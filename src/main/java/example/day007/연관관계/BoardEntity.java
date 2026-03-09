@@ -1,10 +1,10 @@
 package example.day007.연관관계;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor @NoArgsConstructor @Data @Builder
 @Entity @Table(name = "board")
@@ -21,6 +21,13 @@ public class BoardEntity {
         // @ManyToOne 다수가 하나에게, 1:M. 하나의 카테고리에 여러 개 게시물 참조
     @ManyToOne
     private CategoryEntity categoryEntity;
+
+
+    // 양방향
+    @OneToMany( mappedBy = "boardEntity")
+    @ToString.Exclude @Builder.Default
+    private List<ReplyEntity> list = new ArrayList<>();
+
 }
 /* 생성됨
     create table board (

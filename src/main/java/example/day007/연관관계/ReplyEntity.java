@@ -3,9 +3,6 @@ package example.day007.연관관계;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @AllArgsConstructor@NoArgsConstructor@Data@Builder
 @Entity @Table(name = "reply")
 public class ReplyEntity {

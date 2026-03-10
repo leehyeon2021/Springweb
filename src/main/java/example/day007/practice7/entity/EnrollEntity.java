@@ -21,6 +21,9 @@ public class EnrollEntity extends BaseTime{
     private StudentEntity studentId;
 
     public EnrollDto toDto(){
-        return EnrollDto.builder().enrollId(this.enrollId).status(this.status).courseId(this.courseId).studentId(this.studentId).createDate(getCreateDate().toString()).updateDate(getUpdateDate().toString()).build();
+        return EnrollDto.builder()
+                .enrollId(this.enrollId).status(this.status).courseId(this.courseId).studentId(this.studentId)
+                .createDate(getCreateDate().toString()).updateDate(getUpdateDate().toString())
+                        .build();
     }
 }

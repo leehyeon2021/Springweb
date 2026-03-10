@@ -17,6 +17,8 @@ public class EnrollDto {
     private String updateDate;
 
     public EnrollEntity toEntity(){
-        return EnrollEntity.builder().enrollId(this.enrollId).status(this.status).courseId(this.courseId).studentId(this.studentId).build();
+        return EnrollEntity.builder()
+                .enrollId(this.enrollId).status(this.status).courseId(this.courseId).studentId(this.studentId)
+                .build();
     }
 }

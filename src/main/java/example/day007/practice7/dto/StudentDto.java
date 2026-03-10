@@ -5,12 +5,12 @@ import lombok.*;
 
 @AllArgsConstructor @NoArgsConstructor @Data @Builder
 public class StudentDto {
-    private Integer studentId;
+    private Integer studentid;
     private String studentName;
     private String createDate;
     private String updateDate;
 
     public StudentEntity toEntity(){
-        return StudentEntity.builder().studentId(this.studentId).studentName(this.studentName).build();
+        return StudentEntity.builder().studentid(this.studentid).studentName(this.studentName).build();
     }
 }

@@ -7,18 +7,24 @@ import lombok.*;
 
 @AllArgsConstructor @NoArgsConstructor @Data @Builder
 public class EnrollDto {
-    private Integer enrollId;
+    private Integer enrollid;
     private String status;
 
-    private CourseEntity courseId;
-    private StudentEntity studentId;
+    private Integer courseid;
+    private Integer studentid;
+    private String courseName;
+    private String studentName;
+
+    // 아래는 객체를 입력받아야 하는데 내가 자꾸 숫자를 넣음(이런!!)
+    private CourseDto courseDto;
+    private StudentDto studentDto;
 
     private String createDate;
     private String updateDate;
 
     public EnrollEntity toEntity(){
         return EnrollEntity.builder()
-                .enrollId(this.enrollId).status(this.status).courseId(this.courseId).studentId(this.studentId)
+                .enrollid(this.enrollid).status(this.status)
                 .build();
     }
 }

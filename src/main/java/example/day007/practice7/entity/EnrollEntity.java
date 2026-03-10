@@ -8,21 +8,25 @@ import lombok.*;
 @Entity @Table(name = "enroll")
 public class EnrollEntity extends BaseTime{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "enrollId")
-    private Integer enrollId;
+    @Column(name = "enrollid")
+    private Integer enrollid;
     @Column(name = "status")
     private String status;
 
+    // 단방향1
     @ManyToOne( cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JoinColumn(name = "courseId")
-    private CourseEntity courseId;
+    @JoinColumn(name = "courseid")
+    private CourseEntity courseEntity;
+    // 단방향2
     @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JoinColumn(name = "studentId")
-    private StudentEntity studentId;
+    @JoinColumn(name = "studentid")
+    private StudentEntity studentEntity;
 
     public EnrollDto toDto(){
         return EnrollDto.builder()
-                .enrollId(this.enrollId).status(this.status).courseId(this.courseId).studentId(this.studentId)
+                .enrollid(this.enrollid).status(this.status)
+                .courseid(this.courseEntity.getCourseid()).studentid(this.studentEntity.getStudentid())
+                .courseName(courseEntity.getCourseName()).studentName(studentEntity.getStudentName())
                 .createDate(getCreateDate().toString()).updateDate(getUpdateDate().toString())
                         .build();
     }

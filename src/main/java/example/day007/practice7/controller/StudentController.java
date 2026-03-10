@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController @RequestMapping("/student")
 public class StudentController {
     @Autowired
@@ -17,5 +19,11 @@ public class StudentController {
     @PostMapping
     public boolean sSave(@RequestBody StudentDto studentDto){
         return ss.sSave(studentDto);
+    }
+
+    // 교수님 - DTO 없이 Map 사용하심
+    @PostMapping("/add")
+    public boolean addS(@RequestBody Map<String , Object> map){
+        return ss.addS(map);
     }
 }

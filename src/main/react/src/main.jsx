@@ -4,10 +4,11 @@ const root = document.querySelector('#root');
 
 2. root 마크업에 랜더링(render)
 createRoot( root ).render( <h1> 안녕하세요! </h1> );
-vs root.innerHTML = "<h1> 안녕하세요! </h1>";
-*/
+vs root.innerHTML = "<h1> 안녕하세요! </h1>";   */
+
 import { createRoot } from 'react-dom/client'
 import './index.css'
+
 //import App from './App.jsx'
 //createRoot( document.getElementById('root') ).render( <App /> ) <-260310에 주석처리함.
 
@@ -17,6 +18,16 @@ import Exam1 from './chapter4/Exam1.jsx' // 컴포넌트 불러오기
 const root = document.querySelector('#root') // index.html에서 root 가져오기
 createRoot( root ).render( <Exam1 /> ) // root에 최초 컴포넌트 렌더링하기
     // createRoot( document.getElementById('#root') ).render( <Exam1 /> ) <-위랑 이거랑 같음. 그냥 쪼개놓은 것.
-- chapter5 예제로 바꾸기*/
+
+- chapter5 예제로 바꾸기
 import Exam2 from './chapter5/Exam2'
-createRoot(document.getElementById('root')).render(<Exam2/>)
+createRoot(document.getElementById('root')).render(<Exam2/>)*/
+
+/* (260311)
+- chapter6 예제 
+import Exam1 from './chapter6/Exam1.jsx';
+createRoot( root ).render( <Exam1/> );
+
+- chapter7 예제 */
+import Exam2 from './chapter7/Exam2.jsx'
+createRoot(root).render(<Exam2/>)

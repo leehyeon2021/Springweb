@@ -5,7 +5,7 @@
 3. export default function 컴포넌트명( props ){ }
 4. 컴포넌트 내 return(<> JSX문법 </>)
 
-p.111) 컴포넌트 가져오기: 다른 jsx파일에서 ㅋ머포넌트 가져오기*/
+p.111) 컴포넌트 가져오기: 다른 jsx파일에서 컴포넌트 가져오기*/
 
 import BackComp from "./BackComp";
 import FrontComp from "./FrontComp";

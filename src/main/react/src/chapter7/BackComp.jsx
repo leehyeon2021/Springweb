@@ -1,8 +1,5 @@
-// 화살표함수: export, import는 마지막에 해야 함.
 /*  p.117
-부모 컴포넌트로 부터 상태변경함수를 props로 받아서 
-props{} 구조분해할당하여 a 클릭하면
-상태를 back으로 수정한다.   */
+부모 컴포넌트로 부터 상태변경함수를 props로 받아서 props{} 구조분해할당하여 a 클릭하면 상태를 back으로 수정한다.   */
 const BackComp = ( {setMode} ) => {
     return(<>
         <li><a href="/" onClick={()=>{

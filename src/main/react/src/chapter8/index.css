@@ -1,0 +1,13 @@
+.backEnd{
+    color: pink;
+    
+}
+#backEndSub{
+    font-weight: bold;
+    font-size: 1.5em;
+}
+.warnings{
+    color: white;
+    background-color: red;
+    font-size: 1.2em;
+}

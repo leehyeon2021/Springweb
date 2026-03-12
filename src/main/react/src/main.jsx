@@ -28,6 +28,15 @@ createRoot(document.getElementById('root')).render(<Exam2/>)*/
 import Exam1 from './chapter6/Exam1.jsx';
 createRoot( root ).render( <Exam1/> );
 
-- chapter7 예제 */
+- chapter7 예제 
 import Exam2 from './chapter7/Exam2.jsx'
+createRoot(root).render(<Exam2/>)*/
+
+/* (260312) 
+- chapter8 예제 
+import Exam1 from './chapter8/Exam1'
+createRoot(root).render(<Exam1/>) 
+
+- chapter9 예제*/
+import Exam2 from './chapter9/Exam2'
 createRoot(root).render(<Exam2/>)

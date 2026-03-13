@@ -12,7 +12,7 @@
 --     ("이력서 업데이트", "프로젝트 경험 추가", FALSE, NOW(), NOW());
 
 -- day009
-INSERT INTO article(title, content) VALUES
-    ("제목 1", "내용 1"),
-    ("제목 2", "내용 2"),
-    ("제목 3", "내용 3");
+INSERT INTO article(title, content, created_at, updated_at) VALUES
+    ("제목 1", "내용 1", now(), now()),
+    ("제목 2", "내용 2", now(), now()),
+    ("제목 3", "내용 3", now(), now());

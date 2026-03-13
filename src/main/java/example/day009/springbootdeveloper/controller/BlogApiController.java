@@ -74,5 +74,4 @@ public class BlogApiController {
         Article updateArticle = blogService.update(id, request);
         return ResponseEntity.ok().body(updateArticle);
     }
-
 }

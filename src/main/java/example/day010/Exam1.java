@@ -1,5 +1,6 @@
 package example.day010;
 
+// 자바 문법 다시 보기
 
 class Vip{
     // 2-3. 오버라이딩
@@ -16,7 +17,7 @@ class Member extends Vip {
 
 public class Exam1 {
     public static void main(String[] args) {
-
+        System.out.println();
         // 1. 함수 = 메소드 == 기능 == 방법
         // 2. 함수 종류
             // 2-1. 인스턴스(멤버 메소드) == new(인스턴스화) 이용하여 인스턴스 생성하여 함수 호출

@@ -1,10 +1,13 @@
 package example.day011.todo.repository;
 
 import example.day011.todo.entity.TodoEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -22,6 +25,10 @@ public interface TodoRepository extends JpaRepository<TodoEntity, Integer> {
             // 직접 만든 메소드~ㅎㅎㅎㅎ재밋당
         // 2-2. title과 content 조회. 엔티티/MAP `findBy필드명And필드명( 타입 매개변수, 타입 매개변수 );` 반환을 Map<>으로!
     Map<String,Object> findByTitleAndContent( String title , String content );
+        // 2-3. title이 포함된 조회 , `findBy필드명Containing();`
+    List< TodoEntity > findByTitleContaining( String title );
+        // 2-4. 매개변수에 Pageable 인터페이스 사용하면 Page타입으로 반환 가능하다.
+    Page< TodoEntity > findByTitleContaining(String title , Pageable pageable); // Pageable(domain이라고 된 거): page 반환 받을 수 있음.
 
     // 3. 네이티브 메소드
         // 3-1. 연동된 데이터베이스 쿼리 사용 가능하다.
@@ -29,10 +36,16 @@ public interface TodoRepository extends JpaRepository<TodoEntity, Integer> {
         // `select * from 테이블명 where 속성명 = :매개변수명;` // 매개변수명 앞에 :콜론 이용하여 매개변수값 입력. (ps.setXXX() 안 해도 됨)
     @Query(value = "select*from todo where title = :title", nativeQuery = true) // nativeQuery 안 쓰면 JPQL 들어감!
     TodoEntity query1( String title ); // 매개변수: title👆
-        // 3-2.
-    @Query( value = "select * from tod where title = :title and content = :content", nativeQuery = true)
+        // 3-2. title과 content 조회
+    @Query( value = "select * from todo where title = :title and content = :content", nativeQuery = true)
     Map<String,Object> query2(String title , String content);
-        // 단순 검색: Map, 수정: dto/entity 이게 편하대
+            // 단순 검색: Map, 수정: dto/entity 이게 편하대
+        // 3-3. title이 포함된 조회
+    @Query( value = "select * from todo where title like %:title%", nativeQuery = true)
+    List<TodoEntity> query3( String title );
+        // 3-4.
+    @Query( value = "select*from todo where title like %:keyword%", nativeQuery = true)
+    Page<TodoEntity> query4(String title , Pageable pageable);
 
     // 4. JPQL
 

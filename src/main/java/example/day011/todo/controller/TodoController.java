@@ -50,8 +50,32 @@ public class TodoController{
 
     // 4. title과 content 개별 조회
     @GetMapping("/query2")
-    public ResponseEntity<?> query3( @RequestParam String title , @RequestParam String content){
-        Map<String,Object> result = todoService.query3(title,content);
+    public ResponseEntity<?> query2( @RequestParam String title , @RequestParam String content){
+        Map<String,Object> result = todoService.query2(title,content);
         return ResponseEntity.status(200).body(result);
     }
+
+    // 5. title이 포함된 개별 조회
+    @GetMapping("/query3")
+    public ResponseEntity<?> query3(@RequestParam String title){
+        List<TodoDto> result = todoService.query3(title);
+        return ResponseEntity.status(200).body(result);
+    }
+
+    // 6. 페이징처리
+    @GetMapping("/page")
+    public ResponseEntity<?> page(
+            @RequestParam int page,   // page는 조회할 현재페이지 번호
+            @RequestParam int size){ // size는 페이지당 조회할 엔티티 개수
+        return ResponseEntity.ok( todoService.page( page , size ) );
+    }
+
+    // 7. 페이징처리2
+    @GetMapping("/page2")
+    public ResponseEntity<?> page2(@RequestParam(required = false) String keyword,  // required는 필수입력인지 아닌지
+                                   @RequestParam(defaultValue="1") int page ,       // defaultValue는 쿼리스트링 값이 존재하지 않으면 초기값으로
+                                   @RequestParam(defaultValue="3") int size){
+        return ResponseEntity.ok( todoService.page2( keyword , page , size ) );
+    }
+
 }

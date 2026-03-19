@@ -22,7 +22,7 @@ public class ThreadService {
         return result;
     }
 
-    // 2.
+    // 2.6
     @Async // 비동기: 먼저 반환/응답하고 내부적으로 처리
     // +) AppStart 클래스 위에 @EnableAsync 활성화 필수.
     public void test2(){

@@ -10,10 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiController {
     private final ApiService apiService;
 
-    // 1.
+    // 1. JSON
     @GetMapping("/test1")
     public ResponseEntity<?> test1(){
         return ResponseEntity.ok(apiService.test1());
+    }
+
+    // 2. XML
+    @GetMapping("/test2")
+    public ResponseEntity<?> test2(){
+        return ResponseEntity.ok(apiService.test2());
     }
 
 }

@@ -4,16 +4,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController @RequiredArgsConstructor @RequestMapping("/api/session")
 public class SessionController {
 
+    // 테스트 순서
+    // [2] 상태 없음 확인
+    // [1] 상태 생성
+    // [2] 상태 있음 확인
+    // [3] 상태 제거
+    // [2] 상태 없음 확인
+
     // 1. 세션 객체 내 값 저장 (=로그인)
-    @PostMapping("") // http://localhost:8080/api/session?data=세션테스트
+    @PostMapping("") // Get으로 해도 됨. http://localhost:8080/api/session?data=세션테스트
     public ResponseEntity<?> test1(@RequestParam String data, HttpServletRequest request){
 
         // 1. HttpServletRequest: HTTP 요청 정보를 담고 있는 객체
@@ -37,8 +41,35 @@ public class SessionController {
     }
 
     // 2. 세션 객체 내 값 호출 (=로그인의회원정보(마이페이지))
+    @GetMapping("") // http://localhost:8080/api/session
+    public ResponseEntity<?> test2( HttpServletRequest request ){
+        System.out.println( request.getHeader("User-Agent") );
+        // 1. 세션 객체 반환
+        HttpSession session = request.getSession();
+        // 2. 세션 객체 내 특정한 속성 반환.
+            // !주의: 모든 값은 object로 반환된다.
+        Object obj = session.getAttribute("data"); // 'data'라는 이름의 속성값 반환
+        // 3. 유효성 검사. 있으면 로그인중/없으면 비로그인
+        if( obj == null ){
+            System.out.println("[상태 없음]");
+            return ResponseEntity.ok(false);
+        }else{
+            String data = (String) obj; // String data = (ObjDto) obj;처럼 Dto도 됨
+            System.out.println("[상태 있음] "+data);
+            return ResponseEntity.ok( true );
+        }
+    }
 
     // 3. 세션 객체 내 값 제거 (=로그아웃)
+    @DeleteMapping("")
+    public ResponseEntity<?> test3( HttpSession session ){ // 매개변수로 HttpSession을 바로 받는 거 가능함.
+        // 방법 1. 속성 전체 초기화
+        //session.invalidate(); // 세션 객체 내 모든 속성 제ㄱ
+        // 방법 2. 특정 속성 초기화
+        session.removeAttribute( "data" );
+
+        return ResponseEntity.ok(true);
+    }
 
     // +) 세션 객체 내 값 수정: 값 덮어쓰기만 하면 된대
 
@@ -63,12 +94,25 @@ public class SessionController {
 : 브라우저(크롬/엣지/사파리/TV 등) 마다 별도의 세션 객체가 할당된다.
    - 예시) (같은 계정 로그인했다고 치면) 크롬에서 로그아웃해도 엣지에서 로그아웃 안 됨
 
-HttpServletRequest
+### HttpServletRequest
 - 서블릿(Servlet): WAS(톰캣) 서버 내 웹 기술이 가능하게 하는 JAVA의 HTTP 통신 클래스 객체
 - 주요 메소드
    1. `.getRemoteAddr()`: 요청한 클라이언트의 IP 반환.
    2. `.getHeader("User-Agent")`: 요청한 클라이언트의 브라우저 정보 반환.
       - 넷플릭스의 기기 정보 확인 후 로그아웃 할 수 있게 해주는 기능 중: 기기 정보 확인
    3. `.getSession()`: 요청한 클라이언트의 세션 객체를 반환. **브라우저 마다**
+
+### HttpSession
+1. 세션
+: 메모리가 저장되는 구역의 일부
+2. 톰캣 세션
+: HTTP 객체 내 제공 받는 메모리 구역
+3. 주요 메소드
+   1. `.setAttribute( "속성명" , 값 );`: 세션 객체 내 속성명과 속성값 저장. 주로 로그인 상태/정보
+   2. `.getAttribute( "속성명" );`: 세션객체 내 속성명 이용한 속성값 호출. Map과 유사함.
+      - 주의: Object로 반환한다.
+   3. `.removeAttribute( "속성명" )`: 세션 객체 내 특정한 속성 삭제
+
+### 영구 저장 (DataBase) vs. 실시간/사용자 마다 저장(세션(서버과부화위험)/쿠키)
 
 */

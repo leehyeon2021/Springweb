@@ -28,7 +28,7 @@ out/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
-applicaion.properties
+#applicaion.properties -> 이거 하면 applicaion.properties 이거 git 업로드 안 됨
 
 ### NetBeans ###
 /nbproject/private/

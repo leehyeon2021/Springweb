@@ -26,6 +26,7 @@ public class MemberEntity extends BaseTime{
     // ENTITY -> DTO: 주로 조회에서 사용.
     public MemberDto toDto(){
         return MemberDto.builder()
+                .mno(this.mno) // 할 필요 없긴 한데 null 뜨니까 기분이 별로라서 넣어 놓음
                 .mid(this.mid).mname(this.mname)
                 .createDate(getCreateDate().toString()).updateDate(getUpdateDate().toString())
                 //.mpwd(this.mpwd) <- 주로 비밀번호는 DTO로 반환하지 않는다. (웬만하면 비밀번호는 밖으로 안 뺌)

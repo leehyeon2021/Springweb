@@ -28,7 +28,8 @@ public interface TodoRepository extends JpaRepository<TodoEntity, Integer> {
         // 2-3. title이 포함된 조회 , `findBy필드명Containing();`
     List< TodoEntity > findByTitleContaining( String title );
         // 2-4. 매개변수에 Pageable 인터페이스 사용하면 Page타입으로 반환 가능하다.
-    Page< TodoEntity > findByTitleContaining(String title , Pageable pageable); // Pageable(domain이라고 된 거): page 반환 받을 수 있음.
+            // Pageable(domain이라고 된 거): page 반환 받을 수 있음.
+    Page< TodoEntity > findByTitleContaining(String title , Pageable pageable);
 
     // 3. 네이티브 메소드
         // 3-1. 연동된 데이터베이스 쿼리 사용 가능하다.

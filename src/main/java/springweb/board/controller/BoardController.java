@@ -16,7 +16,7 @@ public class BoardController {
     private final BoardService boardService;
 
     // 1. 회원제 글등록 + 세션 정보(회원)
-    @PostMapping("/post")
+    @PostMapping("/write")
     public ResponseEntity<?> write(@RequestBody BoardDto boardDto , HttpSession session ){
         // 1. 세션 내 로그인 정보 확인
         Object obj = session.getAttribute("loginMid");

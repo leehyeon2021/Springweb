@@ -24,14 +24,16 @@ public class BoardService {
         // **** 저장하기 전에 FK 대입하기. FK의 엔티티를 찾아서 대입 ****
         // 현재 로그인 중인 mid로 엔티티 찾기
         Optional<MemberEntity> entityOptional = memberRepository.findByMid( loginMid );
-        if(!entityOptional.isPresent()){return false;} // 존재하지 않으면 존재하지 않은 회원이므로 실패.
+        if(!entityOptional.isPresent()){
+            System.out.println("없어요!"+loginMid);return false;} // 존재하지 않으면 존재하지 않은 회원이므로 실패.
         // ⭐ 저장할 게시물 엔티티에 `.set참조엔티티( 회원엔티티 );` 번호 넣는 거 아님.
         saveEntity.setMemberEntity( entityOptional.get() );
         // *******************************************************
         // 2. entity 저장
         BoardEntity savedEntity = boardRepository.save(saveEntity);
         // 3. 만약
-        if(savedEntity.getBno()>0){return true;}else{return false;}
+        if(savedEntity.getBno()>0){return true;}else{
+            System.out.println("저장안됐어요!");return false;}
     }
 
 }

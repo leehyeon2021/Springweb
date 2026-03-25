@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+// java/springweb의 MemberController2와 JWTService, BoardController 등등 참고
+
 @RestController @RequiredArgsConstructor
 @RequestMapping("/api/jwt")
 public class JWTController {

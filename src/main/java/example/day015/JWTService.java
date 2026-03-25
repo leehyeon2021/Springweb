@@ -26,7 +26,7 @@ public class JWTService {
                 .setIssuedAt( new Date() )              // 토큰 발급 날짜/시간
                 // .setExpiration( new Date( System.currentTimeMillis()+1000 * 초단위 ) ) +1000*20 <- 이건 20초
                 .setExpiration(new Date(System.currentTimeMillis()+1000*60)) // 토큰 유지/유효 시간. 초 단위로 들어감.
-                // `.signWith( 비밀키 , 암호화알고리즘 )` 비밀키는 미리 만들어놔야함
+                // `.signWith( 비밀키 , 암호화알고리즘 )` 비밀키는 미리 만들어놔야함(위에 있음)
                 .signWith( 비밀키  , SignatureAlgorithm.HS256 ) // 최종 토큰 암호화: HS256 알고리즘을 적용한다.
                 .compact();                             // 토큰 최종 문자열로 반환 (끝)
         return token;
@@ -35,7 +35,7 @@ public class JWTService {
     // 2. JWT 토큰 값 추출
     public String 값추출( String token ){
         try {
-            Claims claims = Jwts.parser() // 파싱/ 가져온다는 뜻
+            Claims claims = Jwts.parser() // 파싱: 가져온다는 뜻
                     .setSigningKey(비밀키) // 서명 검증에 필요한 비밀키 대입
                     .build() // 비밀키 확인
                     .parseClaimsJws(token) // 검증할 토큰 대입한다.

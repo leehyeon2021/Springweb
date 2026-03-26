@@ -1,6 +1,7 @@
 package springweb.board.dto;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 import springweb.board.entity.BoardEntity;
 
 @NoArgsConstructor @AllArgsConstructor @Data @Builder
@@ -17,6 +18,8 @@ public class BoardDto {
     // (단방향)entity 정보는 DTO에 포함하지 않는다.
     private Long mno;
     private String mid;
+    // ========첨부파일 (여러 개이면 List<MultipartFile>)========
+    private MultipartFile uploadFile;
 
     public BoardEntity toEntity(){ // 주로 등록용
         return BoardEntity.builder()

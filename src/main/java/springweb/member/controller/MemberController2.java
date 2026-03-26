@@ -20,7 +20,9 @@ public class MemberController2 {
     // 2. 로그인 = 세션 방식-->토큰 방식으로 변경하기
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody MemberDto loginDto){
+        System.out.println("데이터: "+loginDto.toString());
         boolean result = memberService.login( loginDto );
+        System.out.println(result);
         // 1. 만약에 로그인 성공이면 토큰 부여
         if(result){
             // 2. 로그인 성공한 정보 (아이디)

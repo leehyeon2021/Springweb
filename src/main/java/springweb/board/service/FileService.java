@@ -1,4 +1,4 @@
-package example.day016;
+package springweb.board.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,9 +53,11 @@ public class FileService {
         try {
             //  업로드 파일을 특정한 경로에 이송/복사한다. 예외처리 필수!
             uploadFile.transferTo( uploadRealPath );
-            return fileName; // 파일 이름은 DB에 저장하면 된대
+            return fileName; // 업로드된 파일 이름은 DB에 저장하면 된대
         }catch (Exception e){System.out.println(e);}
         return null;
     }
+
+    // 1-3.
 
 }

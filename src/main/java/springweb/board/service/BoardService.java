@@ -16,6 +16,8 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository; //서비스 간 호출/참조 가능.
+    private final FileService fileService;
+
 
     // 1. 글쓰기 (회원)
     public boolean write(BoardDto boardDto, String loginMid ){
@@ -28,7 +30,12 @@ public class BoardService {
             System.out.println("없어요!"+loginMid);return false;} // 존재하지 않으면 존재하지 않은 회원이므로 실패.
         // ⭐ 저장할 게시물 엔티티에 `.set참조엔티티( 회원엔티티 );` 번호 넣는 거 아님.
         saveEntity.setMemberEntity( entityOptional.get() );
-        // *******************************************************
+
+        // ***** 최종 DB에 엔티티를 SAVE하기 전에 첨부파일이 존재하면 업로드 *****
+        String fileName = fileService.upload(boardDto.getUploadFile()); // dto내 multipartFile
+        // 만약에 업로드 했다면 -> 저장할 엔티티에 업로드된 파일명 저장하기
+        if( fileName != null ){ saveEntity.setBfile( fileName ); }
+
         // 2. entity 저장
         BoardEntity savedEntity = boardRepository.save(saveEntity);
         // 3. 만약

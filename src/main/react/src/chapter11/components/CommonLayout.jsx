@@ -1,3 +1,5 @@
+import { Outlet } from "react-router-dom";
+
 export default function CommonLayout(props){
     return(<>
         <div>
@@ -5,7 +7,7 @@ export default function CommonLayout(props){
                 Outlet 컴포넌트 알아보기
             </header>
             <article>
-                <outlet/> {/* 자식 컴포넌트가 렌더링 될 위치 */}
+                <Outlet/> {/* 자식 컴포넌트가 렌더링 될 위치 */}
             </article>
             <footer style={{background: 'lightgray', padding: '10px'}}>
                 공통 레이아웃

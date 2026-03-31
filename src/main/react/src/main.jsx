@@ -37,6 +37,11 @@ createRoot(root).render(<Exam2/>)*/
 import Exam1 from './chapter8/Exam1'
 createRoot(root).render(<Exam1/>) 
 
-- chapter9 예제*/
+- chapter9 예제
 import Exam2 from './chapter9/Exam2'
-createRoot(root).render(<Exam2/>)
+createRoot(root).render(<Exam2/>)*/
+
+/* (260331)
+- chapter10 예제*/
+import Exam1 from './chapter10/Exam1'
+createRoot(root).render(<Exam1/>)

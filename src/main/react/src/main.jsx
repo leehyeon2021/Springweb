@@ -42,6 +42,11 @@ import Exam2 from './chapter9/Exam2'
 createRoot(root).render(<Exam2/>)*/
 
 /* (260331)
-- chapter10 예제*/
+- chapter10 예제(얕은비교)
 import Exam1 from './chapter10/Exam1'
 createRoot(root).render(<Exam1/>)
+
+- chapter11 예제(라우터)*/
+import Exam2 from './chapter11/Exam2'
+import {BrowserRouter} from 'react-router-dom'                   // 1. 라이브러리 import 하기
+createRoot(root).render(<BrowserRouter><Exam2/></BrowserRouter>) // 2. 최초 렌더링 되는 컴포넌트에 BrowserRouter 감싼다.

@@ -16,6 +16,7 @@ function MoveBox( props ){
     const boxStyle = {
         backgroundColor : 'red',
         position : 'relative',
+        textAlign: 'center',
         left : `${ position }px`, // CSS 요소의 JS 변수 대입. 즉-css를 변수화/객체화
         width : '100px', height : '100px',
         margin : '10px', 

@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import TopNavi from "./components/TopNavi";
 import Lifecycle from "./components/Lifecycle";
 import LocalJsonFetcher from "./components/LocalJsonFetcher";
+import ExternalApiFetcher from "./components/ExternalApiFetcher";
 
 export default function App( props ){
     return(<>
@@ -10,6 +11,7 @@ export default function App( props ){
         <Routes>
             <Route path="/" element={<Lifecycle/>}></Route>
             <Route path="/local" element={<LocalJsonFetcher/>}></Route>
+            <Route path="/external" element={<ExternalApiFetcher/>}></Route>
         </Routes>
     </>)
 }

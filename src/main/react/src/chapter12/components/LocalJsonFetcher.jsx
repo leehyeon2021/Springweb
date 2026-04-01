@@ -40,7 +40,7 @@ const GlobalTop = ( props ) =>{
             <li key={ data.id }>
                 <a href={ data.id } data-id={ data.num } onClick={ (e) => {
                     e.preventDefault(); // e.preventDefault(): a마크업 관련된 기본 기능 제거(깜빡이는 기능 제거)
-                    props.myLinkClick(e.target.dataset.id); 
+                    props.myLinkClick(e.target.dataset.id); // e.target: 해당 이벤트를 발생시킨 마크업. 여기서는 a 마크업.
                 }}> {data.id} </a>
             </li>
         );
@@ -63,7 +63,21 @@ const GlobalTop = ( props ) =>{
             </ul>
         </nav>
     </>)
+}
 
+//
+const ContentBody = ( props ) => {
+    return(<>
+        <div>
+            <h2> {props.myResult.name} </h2>
+            <ul>
+                <li> num : { props.myResult.num } </li>
+                <li> id : { props.myResult.id } </li>
+                <li> cell : { props.myResult.cell } </li>
+                <li> description : { props.myResult.description } </li>
+            </ul>
+        </div>
+    </>)
 }
 
 // LocalJsonFetcher.jsx
@@ -83,7 +97,18 @@ export default function LocalJsonFetcher( props ){
             const response = await axios.get( `./json/dto${num}.json`);
             const result = response.data;
             setMyResult( result );
-
         }}></GlobalTop>
+        <ContentBody myResult={ myResult }>
+
+        </ContentBody>
     </>)
 }
+
+/*
+function add( x ){
+    return x+3;
+}
+
+- 일반 함수 호출: add(3) , 결과는 6
+- 컴포넌트 함수 호출: <add x=3> , 결과는 html
+*/

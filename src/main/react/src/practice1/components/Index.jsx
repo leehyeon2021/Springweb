@@ -26,7 +26,7 @@ export default function Index( props ){
             const response = await axios.delete('http://localhost:8080/api/task?id='+id);
             console.log(response.status);
             // 본문이 없으면 본문으로 분기하지 않고 HTTP 응답 코드 분기
-             if( response.status == 204 ){ alert('삭제성공'); taskList(); } 
+             if( response.status == 200 ){ alert('삭제성공'); taskList(); } 
             else{ alert('삭제실패'); }
         }
     }

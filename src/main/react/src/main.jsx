@@ -56,11 +56,21 @@ createRoot(root).render(                                         // 2. 최초 �
 ) */
 
 /* (260401) 
-- chapter12 예제 (생명주기)*/
+- chapter12 예제 (생명주기)
 import App from './chapter12/App'
 import { BrowserRouter } from 'react-router-dom'
 createRoot(root).render(
     <BrowserRouter>
         <App/>
+    </BrowserRouter>
+)*/
+
+/* (260402) 
+- practice1 예제 */
+import App from './practice1/App';
+import {BrowserRouter} from 'react-router-dom'
+createRoot( root ).render(
+    <BrowserRouter>
+        <App />
     </BrowserRouter>
 )

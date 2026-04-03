@@ -7,6 +7,7 @@ createRoot( root ).render( <h1> 안녕하세요! </h1> );
 vs root.innerHTML = "<h1> 안녕하세요! </h1>";   */
 
 import { createRoot } from 'react-dom/client'
+const root = document.querySelector('#root');
 import './index.css'
 
 //import App from './App.jsx'
@@ -66,11 +67,21 @@ createRoot(root).render(
 )*/
 
 /* (260402) 
-- practice1 예제 */
+- practice1 예제 
 import App from './practice1/App';
 import {BrowserRouter} from 'react-router-dom'
 createRoot( root ).render(
     <BrowserRouter>
         <App />
+    </BrowserRouter>
+)*/
+
+/* (260403) 
+- reactweb (백-springweb)*/
+import App from './reactweb/App';
+import {BrowserRouter} from 'react-router-dom'
+createRoot(root).render(
+    <BrowserRouter>
+        <App/>
     </BrowserRouter>
 )

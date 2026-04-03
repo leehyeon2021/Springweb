@@ -45,7 +45,9 @@ export default function Header( props ){
         alert('로그아웃 성공'); location.href="/";
     }
     
-
+    // localStorage는 브라우저를 껐다 켜도 남아있음. 
+    // 사용자가 '로그아웃'하지 않으면 자동으로 로그인 상태.
+        // => Cookies 사용! (로컬과 쿠키 둘 다 사용)
 
     return(<>
         <div>

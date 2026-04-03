@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 @Service
@@ -28,13 +29,13 @@ public class FileService {
         System.out.println( uploadFile.getSize() ); // 140777
 
         // 1. 만약에 파일이 존재하지 않으면
-        if( uploadFile.isEmpty() ){ return null; } // 업로드 실패: 파일 없음!
+        if( uploadFile == null || uploadFile.isEmpty() ){ return null; } // 업로드 실패: 파일 없음!
         // 2. 파일을 업로드할 경로 찾기: `File 파일객체 = new File( 파일경로 )`
             // 업로드할 uploadDir+파일을 file 객체 내 대입
             // 서버 경로 추가 - 개발자는 src에서만 -배포/실행-> 서버(build파일실행) <--- 클라이언트(사용자) build에게 요청 보냄.
         File uploadPath = new File( uploadDir );
         /// ***만약에 해당 경로의 폴더가 존재하지 않으면 폴더 생성
-        if(!uploadPath.exists()){ // :file객체.exists() : 경로가 존재하면 true
+        if(uploadPath.exists() == false ){ // :file객체.exists() : 경로가 존재하면 true
             uploadPath.mkdir(); // file객체.mkdir(): 경로/폴더 생성
         }
         // 3. 업로드: 실제업로드경로 + 파일명
@@ -49,15 +50,14 @@ public class FileService {
         // 파일명과 경로를 연결해서 최종적인 경로 파일 객체를 생성.
         String fileName = uuid + "_" + uploadFile.getOriginalFilename().replaceAll("_","-");
             // 업로드할 파일명. uuid 더해주면 '이상한문자_원문.확장자' 이렇게 나옴.
-        File uploadRealPath = new File(uploadDir+ fileName);
+        File uploadRealPath = new File( uploadDir + fileName );
         try {
             //  업로드 파일을 특정한 경로에 이송/복사한다. 예외처리 필수!
             uploadFile.transferTo( uploadRealPath );
+            System.out.println("fileName: "+fileName);
             return fileName; // 업로드된 파일 이름은 DB에 저장하면 된대
-        }catch (Exception e){System.out.println(e);}
+        }catch(IOException e){ System.out.println( e ); }
         return null;
     }
-
-    // 1-3.
 
 }

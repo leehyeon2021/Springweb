@@ -9,8 +9,13 @@ import springweb.member.service.MemberService;
 
 // day015(JWT) 참고
 
-@RestController @RequiredArgsConstructor
+@RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/member2")
+
+// 도메인 열어주기 (Authorization 허용)
+@CrossOrigin(value = "http://localhost:5173", exposedHeaders = "Authorization")
+
 public class MemberController2 {
     private final MemberService memberService;
     private final JWTService jwtService;

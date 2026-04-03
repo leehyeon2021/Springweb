@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -18,7 +19,7 @@ export default function Header( props ){
         if( !token ){ setLogin( false ); return; }
         // 3) 헤더에 표시할 로그인 된 유저 아이디 가져오기
         const response = await axios.get('http://localhost:8080/api/member2/my/info'
-                                        , { headers : { Authorizaion : `Bearer ${token}`} })
+                                        , { headers : { Authorization : `Bearer ${token}`} })
             // { headers : { 속성명 , 값 } } (탈란드 header에 넣었던 것처럼.)
             // axios 특징: Content-Type : application/json이 기본값
             // 그러므로 아닐 경우 명시해야 한다. { headers : { 여기에! } }
@@ -32,6 +33,17 @@ export default function Header( props ){
 
     // 4. 헤더가 열리면 최초 1번 실행 (로그인상태 - 백엔드에서 검증할 수밖에 없음 - 통신 필요)
     useEffect( () => { getMyInfo(); } , [] );
+
+
+    // 5. 로그아웃
+    const logout = () => {
+        // 1. localStorage 에서 token 제거 (.removeItem())
+        localStorage.removeItem( 'token' );
+        // 2. 로그아웃 상태 변경
+        setLogin( false );
+        // 3. 로그아웃
+        alert('로그아웃 성공'); location.href="/";
+    }
     
 
 
@@ -39,16 +51,18 @@ export default function Header( props ){
         <div>
             <Link to="/"> 홈 </Link> |
 
-            { login == false && (<> </>) }
+            { login == false && (<> 
+                <Link to="/member/login"> 로그인 </Link> |
+                <Link to="/member/signup"> 회원가입 </Link> |
+            </>) }
 
-            { login == false && (<> </>) }
+            { login == true && (<>
+                <span> {user.mname} 님 </span> |
+                <Link to="/member/page"> 내 정보 </Link> |
+                <Link to="/board/write"> 글쓰기 </Link> |
+                <button onClick={ logout }> 로그아웃 </button>
+            </>) }
 
-            <Link to="/member/login"> 로그인 </Link> |
-            <Link to="/member/signup"> 회원가입 </Link> |
-            <span> 000 님 </span> |
-            <Link to="/member/page"> 내 정보 </Link> |
-            <Link to="/board/write"> 글쓰기 </Link> |
-            <button> 로그아웃 </button>
             <hr/>
         </div>
     </>)

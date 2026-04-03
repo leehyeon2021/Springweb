@@ -23,7 +23,10 @@ public class BoardDto {
 
     public BoardEntity toEntity(){ // 주로 등록용
         return BoardEntity.builder()
-                .bno(this.bno).btitle(this.btitle).bcontent(this.bcontent).bfile(this.bfile)
+                .bno(this.bno)
+                .btitle(this.btitle)
+                .bcontent(this.bcontent)
+                .bfile(this.bfile)
                 // memberEntity fk는 서비스에서 대입하는 걸로 하는 컨셉
                 .build();
     }

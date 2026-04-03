@@ -9,6 +9,9 @@ import springweb.member.service.MemberService;
 
 @RestController @RequiredArgsConstructor
 @RequestMapping("/api/member")
+
+
+@CrossOrigin( value = "http://localhost:5173" , exposedHeaders = "Authorization")
 public class MemberController {
     private final MemberService memberService;
 

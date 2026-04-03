@@ -27,7 +27,8 @@ public class BoardService {
         // 현재 로그인 중인 mid로 엔티티 찾기
         Optional<MemberEntity> entityOptional = memberRepository.findByMid( loginMid );
         if(!entityOptional.isPresent()){
-            System.out.println("없어요!"+loginMid);return false;} // 존재하지 않으면 존재하지 않은 회원이므로 실패.
+            System.out.println("없어요!"+loginMid);
+            return false;} // 존재하지 않으면 존재하지 않은 회원이므로 실패.
         // ⭐ 저장할 게시물 엔티티에 `.set참조엔티티( 회원엔티티 );` 번호 넣는 거 아님.
         saveEntity.setMemberEntity( entityOptional.get() );
 

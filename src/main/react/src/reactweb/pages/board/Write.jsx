@@ -1,7 +1,10 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Write( props ){
+
+    const navigate = useNavigate();
     
     // 1. REST API로 글쓰기 요청
     const boardWrite = async( e ) => {
@@ -21,7 +24,6 @@ export default function Write( props ){
         const formData = new FormData() // 대용량 폼을 지원하는 객체
         formData.append( 'btitle', btitle ); // .append( 속성명, 값 )
         formData.append( 'bcontent', bcontent );
-        formData.append( 'uploadFile', uploadFile );
         // * 만약에 첨부파일이 존재하면 추가
         if(uploadFile){ formData.append('uploadFile', uploadFile );}
         // 3) AXIOS
@@ -33,6 +35,7 @@ export default function Write( props ){
         const data = response.data;
         if( data == true ){
             alert('글쓰기 성공');
+            navigate( "/board" );
         }else{
             alert('글쓰기 실패');
         }

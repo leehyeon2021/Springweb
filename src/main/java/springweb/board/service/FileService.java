@@ -19,17 +19,19 @@ public class FileService {
 
     // 1. 업로드
     public String upload( MultipartFile uploadFile ){
-        // 1. `.isEmpty()`: 첨부파일 존재 여부 반환. 비어있니?->있다(false)/없다(true)
-        System.out.println( uploadFile.isEmpty() ); // false
-        // 2. `.getOriginalFilename()`: 첨부파일의 파일명
-        System.out.println( uploadFile.getOriginalFilename() ); // 스크린샷 2026-03-23 204240.png
-        // 3. `.getContentType()`: 첨부하일의 확장자 (유효성 검사시 사용)
-        System.out.println( uploadFile.getContentType() ); // image/png
-        // 4. `.getSize()`: 첨부파일의 용량. byte단위.
-        System.out.println( uploadFile.getSize() ); // 140777
+//        // 1. `.isEmpty()`: 첨부파일 존재 여부 반환. 비어있니?->있다(false)/없다(true)
+//        System.out.println( uploadFile.isEmpty() ); // false
+//        // 2. `.getOriginalFilename()`: 첨부파일의 파일명
+//        System.out.println( uploadFile.getOriginalFilename() ); // 스크린샷 2026-03-23 204240.png
+//        // 3. `.getContentType()`: 첨부하일의 확장자 (유효성 검사시 사용)
+//        System.out.println( uploadFile.getContentType() ); // image/png
+//        // 4. `.getSize()`: 첨부파일의 용량. byte단위.
+//        System.out.println( uploadFile.getSize() ); // 140777
 
         // 1. 만약에 파일이 존재하지 않으면
-        if( uploadFile == null || uploadFile.isEmpty() ){ return null; } // 업로드 실패: 파일 없음!
+        if( uploadFile == null || uploadFile.isEmpty() ){
+            return null;
+        } // 업로드 실패: 파일 없음!
         // 2. 파일을 업로드할 경로 찾기: `File 파일객체 = new File( 파일경로 )`
             // 업로드할 uploadDir+파일을 file 객체 내 대입
             // 서버 경로 추가 - 개발자는 src에서만 -배포/실행-> 서버(build파일실행) <--- 클라이언트(사용자) build에게 요청 보냄.

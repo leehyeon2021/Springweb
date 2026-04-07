@@ -2,6 +2,7 @@ package springweb.member.controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,6 +55,43 @@ public class MemberController3 {
 
 
     // 3. 로그아웃 = 세션 방식-->토큰+쿠키 방식 변경
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout( HttpServletResponse response ){
+        // 1. 매개변수에 HttpServletResponse response 받는다.
+
+        // 2. 삭제할 쿠키와 동일한 속성명으로 null 값 저장하는 쿠키 생성
+        Cookie cookie = new Cookie( "token" , null );
+        cookie.setMaxAge( 0 ); // 쿠키의 생명주기를 0으로 설정
+        cookie.setPath( "/" );
+
+        // 3. 쿠키 반환
+        response.addCookie( cookie );
+
+        // 4. 값 반환
+        return ResponseEntity.ok( true );
+    }
 
     // 4. 마이페이지 = 세션 방식-->토큰+쿠키 방식 변경
+    @GetMapping("/my/info")
+    public ResponseEntity<?> myInfo(
+            @CookieValue( value = "token" , required = false ) String token ) { // RequestHeader 지움
+        // @CookieValue : HTTP 요청의 cookie 정보 매핑
+        // 1. @CookieValue( "token" ) String token을 매개변수로 받는다.
+        // required = false 설정하면 필수값이 아닌 상태
+
+        // 2. 만약에 쿠키 값이 없으면 비로그인
+        if (token == null) {
+            return ResponseEntity.ok(false);
+        }
+
+        // 3. 토큰에서 값(클레임) 추출
+        String mid = jwtService.getClaim(token);
+        if (mid == null) {
+            return ResponseEntity.ok(false);
+        } // 토큰 문제로 실패
+
+        // 4. 토큰에서 꺼낸 값(mid)으로 회원정보 요청해서 변환하기
+        return ResponseEntity.ok(memberService.myInfo(mid));
+    }
+
 }

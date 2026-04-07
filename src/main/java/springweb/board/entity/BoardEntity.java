@@ -27,7 +27,7 @@ public class BoardEntity extends BaseTime{
         return BoardDto.builder()
                             .bno(this.bno).btitle(this.btitle).bcontent(this.bcontent).bfile(this.bfile)
                             .createDate(getCreateDate().toString()).updateDate(getUpdateDate().toString())
-                            .mno(memberEntity.getMno()).mid(memberEntity.getMid())
+                            .mno(memberEntity.getMno()).mname(memberEntity.getMname())
                         .build();
     }
 }

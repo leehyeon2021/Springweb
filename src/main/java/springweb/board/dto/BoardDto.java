@@ -17,7 +17,7 @@ public class BoardDto {
     private String updateDate;
     // (단방향)entity 정보는 DTO에 포함하지 않는다.
     private Long mno;
-    private String mid;
+    private String mname;
     // ========첨부파일 (여러 개이면 List<MultipartFile>)========
     private MultipartFile uploadFile;
 

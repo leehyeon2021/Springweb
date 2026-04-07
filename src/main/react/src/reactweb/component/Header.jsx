@@ -14,15 +14,16 @@ export default function Header( props ){
     // 1. 로그인 상태에 따라 메뉴 분기 (로그인하면 로그인/회원가입 X)
     const getMyInfo = async () => {
         // 1) 로그인 시 localStorage에 저장한 token 가져오기. (.setItem , .getItem)
-        const token = localStorage.getItem( 'token' );
+        //const token = localStorage.getItem( 'token' ); -> 쿠키 사용 시 제거
         // 2) 만약에 token이 없으면 - 함수 종료 (로그인상태)
-        if( !token ){ setLogin( false ); return; }
+        //if( !token ){ setLogin( false ); return; } -> 쿠키 사용 시 제거
         // 3) 헤더에 표시할 로그인 된 유저 아이디 가져오기
-        const response = await axios.get('http://localhost:8080/api/member2/my/info'
-                                        , { headers : { Authorization : `Bearer ${token}`} })
-            // { headers : { 속성명 , 값 } } (탈란드 header에 넣었던 것처럼.)
-            // axios 특징: Content-Type : application/json이 기본값
-            // 그러므로 아닐 경우 명시해야 한다. { headers : { 여기에! } }
+        const response = await axios.get('http://localhost:8080/api/member3/my/info'
+                                        //, { headers : { Authorization : `Bearer ${token}`} } -> 쿠키 사용 시 제거
+                                            // { headers : { 속성명 , 값 } } (탈란드 header에 넣었던 것처럼.)
+                                            // axios 특징: Content-Type : application/json이 기본값
+                                            // 그러므로 아닐 경우 명시해야 한다. { headers : { 여기에! } }
+                                        , {withCredentials : true}) // header에 쿠키(+토큰포함) 전송으로 변경
         // 4) 통신 결과 보기 
         const data = response.data;
         if( data || data != false ){ // 응답 자료(Dto)가 존재하면
@@ -36,13 +37,28 @@ export default function Header( props ){
 
 
     // 5. 로그아웃
-    const logout = () => {
-        // 1. localStorage 에서 token 제거 (.removeItem())
-        localStorage.removeItem( 'token' );
-        // 2. 로그아웃 상태 변경
+    // const logout = () => {
+    //     // 1. localStorage 에서 token 제거 (.removeItem())
+    //     localStorage.removeItem( 'token' );
+    //     // 2. 로그아웃 상태 변경
+    //     setLogin( false );
+    //     // 3. 로그아웃
+    //     alert('로그아웃 성공'); location.href="/";
+    // }
+
+    // 5. 로그아웃 (토큰+쿠키)
+    const logout = async() => {
+        
+        // 1. axios
+        const response = await axios.get(
+            "http://localhost:8080/api/member3/logout" // 통신할 서버의 경로
+            , {withCredentials : true} // 쿠키(+토큰포함) 전송
+        )
+
+        // 2. 로그인 상태 변경 , 안내후 페이지 변경
         setLogin( false );
-        // 3. 로그아웃
-        alert('로그아웃 성공'); location.href="/";
+        alert('로그아웃');
+        location.href="/"
     }
     
     // localStorage는 브라우저를 껐다 켜도 남아있음. 
@@ -52,6 +68,7 @@ export default function Header( props ){
     return(<>
         <div>
             <Link to="/"> 홈 </Link> |
+            <Link to="/board"> 글 목록 </Link> | {/*로그인&비로그인모두조회가능*/}
 
             { login == false && (<> 
                 <Link to="/member/login"> 로그인 </Link> |

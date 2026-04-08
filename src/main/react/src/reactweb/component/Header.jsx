@@ -70,15 +70,18 @@ export default function Header( props ){
             <Link to="/"> 홈 </Link> |
             <Link to="/board"> 글 목록 </Link> | {/*로그인&비로그인모두조회가능*/}
 
+            {/* 비회원 메뉴 */}
             { login == false && (<> 
                 <Link to="/member/login"> 로그인 </Link> |
                 <Link to="/member/signup"> 회원가입 </Link> |
             </>) }
 
+            {/* 회원 메뉴 */}
             { login == true && (<>
                 <span> {user.mname} 님 </span> |
                 <Link to="/member/page"> 내 정보 </Link> |
                 <Link to="/board/write"> 글쓰기 </Link> |
+                <Link to="/chat"> 채팅방 </Link> |
                 <button onClick={ logout }> 로그아웃 </button>
             </>) }
 

@@ -8,7 +8,6 @@ vs root.innerHTML = "<h1> 안녕하세요! </h1>";   */
 
 import { createRoot } from 'react-dom/client'
 const root = document.querySelector('#root');
-import './index.css'
 
 //import App from './App.jsx'
 //createRoot( document.getElementById('root') ).render( <App /> ) <-260310에 주석처리함.
@@ -49,8 +48,8 @@ createRoot(root).render(<Exam1/>)
 
 - chapter11 예제(라우터)
 import Exam2 from './chapter11/Exam2'
-import {BrowserRouter} from 'react-router-dom'                   // 1. 라이브러리 import 하기
-createRoot(root).render(                                         // 2. 최초 렌더링 되는 컴포넌트에 BrowserRouter 감싼다.
+import {BrowserRouter} from 'react-router-dom'  // 1. 라이브러리 import 하기
+createRoot(root).render(                        // 2. 최초 렌더링 되는 컴포넌트에 BrowserRouter 감싼다.
     <BrowserRouter>
         <Exam2/>
     </BrowserRouter>
@@ -77,8 +76,18 @@ createRoot( root ).render(
 )*/
 
 /* (260403) 
-- reactweb (백-springweb)*/
+- reactweb (백-springweb)
 import App from './reactweb/App';
+import {BrowserRouter} from 'react-router-dom'
+createRoot(root).render(
+    <BrowserRouter>
+        <App/>
+    </BrowserRouter>
+)*/
+
+/* (260409)
+- manager (제출용) */
+import App from './manager/App.jsx';
 import {BrowserRouter} from 'react-router-dom'
 createRoot(root).render(
     <BrowserRouter>

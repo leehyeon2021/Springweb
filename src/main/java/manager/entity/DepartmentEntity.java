@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import manager.dto.DepartmentDto;
 
 @Entity
+@Table(name = "department")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -16,7 +17,7 @@ public class DepartmentEntity {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Integer dId;
-    @Column( length = 50 )
+    @Column( length = 50 , unique = true)
     private String dName;
 
     public DepartmentDto toDto(){

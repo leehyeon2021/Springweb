@@ -42,26 +42,30 @@ export default function DepartmentManager(prpos) {
   const updateDep = async(dId) => {
     let dName = prompt('수정할 부서명을 입력하세요.');
     let obj = { dId , dName };
-    const response = await axios.put("http://localhost:8080/api/department/update", obj);
-    if(response.data == true){
-      alert('수정 성공');
-      findAllDep();
-    }else{
-      alert('수정 실패');
-    }
+    try{
+      const response = await axios.put("http://localhost:8080/api/department/update", obj);
+      if(response.data == true){
+        alert('수정 성공');
+        findAllDep();
+      }else{
+        alert('수정 실패');
+      }
+    }catch(e){console.error(e)}
   }
 
   // 삭제
   const deleteDep = async(dId) => {
     const result = confirm('정말 삭제할까요?');
     if(result == true){
-      const response = await axios.delete(`http://localhost:8080/api/department/delete?dId=${dId}`);
-      if(response.status == 200){
-        alert('삭제 성공');
-        findAllDep();
-      }else{
-        alert('삭제 실패')
-      }
+      try{
+        const response = await axios.delete(`http://localhost:8080/api/department/delete?dId=${dId}`);
+        if(response.status == 200){
+          alert('삭제 성공');
+          findAllDep();
+        }else{
+          alert('삭제 실패')
+        }
+      }catch(e){console.error(e)}
     }
   }
 

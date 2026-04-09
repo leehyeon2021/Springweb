@@ -66,8 +66,8 @@ public class EmployeeService {
     public boolean updateEmp(EmployeeDto employeeDto){
         return employeeRepository.findById(employeeDto.getEId())
                 .map(entity -> {
-                    entity.setEName(employeeDto.getEName());
-                    entity.setERank(employeeDto.getERank());
+                    if(employeeDto.getEName() != null) entity.setEName(employeeDto.getEName());
+                    if(employeeDto.getERank() != null) entity.setERank(employeeDto.getERank());
                     return true;
                 })
                 .orElse(false);

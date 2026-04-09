@@ -61,8 +61,36 @@ export default function EmployeeManager(props) {
   }
 
   // 수정
+  const updateEmp = async(eId) => {  
+    let eName = prompt('수정할 사원명을 입력하세요.');
+    let eRank = prompt('수정할 직급명을 입력하세요.');
+    let obj = {eId, eName , eRank};
+    try{
+      const response = await axios.put("http://localhost:8080/api/employee/update", obj);
+      if(response.data == true){
+        alert('수정 성공');
+        findAllEmp();
+      }else{
+        alert('수정 실패');
+      }    
+    }catch(e){console.error(e)}
+  }
 
   // 삭제
+  const deleteEmp = async(eId) => {
+    const result = confirm('정말 삭제할까요?');
+    if(result == true){
+      try{
+        const response = await axios.delete(`http://localhost:8080/api/employee/delete?eId=${eId}`);
+        if(response.status == 200){
+          alert('삭제 성공');
+          findAllEmp();
+        }else{
+          alert('삭제 실패')
+        }
+      }catch(e){console.error(e)}
+    }
+  }
   
 
   return (
@@ -115,8 +143,8 @@ export default function EmployeeManager(props) {
                     <td>{emp.dName}</td>
                     <td>{emp.eRank}</td>
                     <td>
-                      <span className="edit">수정</span>
-                      <span className="delete">삭제</span>
+                      <span onClick={()=> {updateEmp(emp.eId);}} className="edit">수정</span>
+                      <span onClick={()=> {deleteEmp(emp.eId);}} className="delete">삭제</span>
                     </td>
                   </tr>
                 )

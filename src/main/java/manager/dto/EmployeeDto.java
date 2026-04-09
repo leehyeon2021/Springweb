@@ -24,7 +24,7 @@ public class EmployeeDto {
 
     public EmployeeEntity toEntity(){
         return EmployeeEntity.builder()
-                .eId(this.eId).eName(this.eName).eRank(this.eRank)
+                .eName(this.eName).eRank(this.eRank)
                 .eFile(this.eFile)
                 .build();
     }

@@ -1,10 +1,7 @@
 ﻿import axios from "axios";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
-export default function DepartmentManager() {
-
-  const navigete = useNavigate();
+export default function DepartmentManager(prpos) {
 
   // 전체 조회
   const [ depAry , setDepAry ] = useState([]);
@@ -14,13 +11,13 @@ export default function DepartmentManager() {
       const response = await axios.get("http://localhost:8080/api/department/findAll");
       const data = response.data;
       setDepAry( data );
-      console.log(data);
     }catch(e){console.log(e)}
   }
 
+  // 등록
   const addDep = async(e) => {
     e.preventDefault();
-    console.log('등록하기 버튼 클릭됨');
+    console.log('[부서] 등록하기 버튼 클릭됨');
 
     let dName = e.target.dName.value;
     console.log(dName);
@@ -30,23 +27,52 @@ export default function DepartmentManager() {
       const data = response.data;
       console.log(data);
 
-      if(data){
-        alert('등록이 완료되었습니다.')
-        navigete("/");
+      if(data == true){
+        alert('등록 완료')
+        e.target.dName.value="";
+        findAllDep();
       }else{
-        alert('등록에 실패했습니다.')
-        navigete("/")
+        alert('등록 실패')
+        e.target.dName.value="";
       }
     }catch(e){console.error(e)}
   }
 
+  // 수정
+  const updateDep = async(dId) => {
+    let dName = prompt('수정할 부서명을 입력하세요.');
+    let obj = { dId , dName };
+    const response = await axios.put("http://localhost:8080/api/department/update", obj);
+    if(response.data == true){
+      alert('수정 성공');
+      findAllDep();
+    }else{
+      alert('수정 실패');
+    }
+  }
+
+  // 삭제
+  const deleteDep = async(dId) => {
+    const result = confirm('정말 삭제할까요?');
+    if(result == true){
+      const response = await axios.delete(`http://localhost:8080/api/department/delete?dId=${dId}`);
+      if(response.status == 200){
+        alert('삭제 성공');
+        findAllDep();
+      }else{
+        alert('삭제 실패')
+      }
+    }
+  }
+
+  useEffect( () => { findAllDep(); } , [] );
 
   return (
     <div className="sidebar">
       <h3>부서 관리</h3>
 
       <form className="dept-input" onSubmit={addDep}>
-        <input name="bName" type="text" placeholder="신규 부서명 입력" />
+        <input name="dName" type="text" placeholder="신규 부서명 입력" />
         <button type="submit">추가</button>
       </form>
 
@@ -64,8 +90,8 @@ export default function DepartmentManager() {
                 <tr key={dep.dId}>
                   <td>{dep.dName}</td>
                   <td>
-                    <span className="edit">수정</span>
-                    <span className="delete">삭제</span>
+                    <span onClick={() => {updateDep(dep.dId);}} className="edit">수정</span>
+                    <span onClick={() => {deleteDep(dep.dId);}} className="delete">삭제</span>
                   </td>
                 </tr>
               )

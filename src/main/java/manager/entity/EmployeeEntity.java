@@ -27,7 +27,7 @@ public class EmployeeEntity {
     private String eFile;
 
     @JoinColumn(name = "d_id")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private DepartmentEntity departmentEntity;
 
     public EmployeeDto toDto(){

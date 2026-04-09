@@ -1,5 +1,6 @@
 package manager.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import manager.dto.EmployeeDto;
 import manager.entity.DepartmentEntity;
@@ -61,6 +62,7 @@ public class EmployeeService {
     }
 
     // 사원 수정
+    @Transactional
     public boolean updateEmp(EmployeeDto employeeDto){
         return employeeRepository.findById(employeeDto.getEId())
                 .map(entity -> {

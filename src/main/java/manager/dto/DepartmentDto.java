@@ -16,7 +16,7 @@ public class DepartmentDto {
 
     public DepartmentEntity toEntity(){
         return DepartmentEntity.builder()
-                .dId(this.dId).dName(this.dName)
+                .dName(this.dName)
                 .build();
     }
 }

@@ -40,7 +40,7 @@ public class EmployeeService {
         System.out.println(fileName);
 
         if( fileName != null ){
-            saveEntity.setEFile( fileName );
+            saveEntity.setEFile("http://localhost:8080/upload/"+fileName);
         }else {
             saveEntity.setEFile(defaultImg);
         }

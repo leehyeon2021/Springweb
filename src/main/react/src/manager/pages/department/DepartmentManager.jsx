@@ -20,6 +20,10 @@ export default function DepartmentManager(prpos) {
     console.log('[부서] 등록하기 버튼 클릭됨');
 
     let dName = e.target.dName.value;
+    if(dName==null||dName==''){
+      alert('[등록 오류] 부서명을 입력하세요.')
+      return;
+    }
     console.log(dName);
     let obj = { dName };
     try{
@@ -28,14 +32,15 @@ export default function DepartmentManager(prpos) {
       console.log(data);
 
       if(data == true){
-        alert('등록 완료')
+        alert('[등록 완료] '+dName+" 추가 완료")
         e.target.dName.value="";
         findAllDep();
-      }else{
-        alert('등록 실패')
-        e.target.dName.value="";
       }
-    }catch(e){console.error(e)}
+    }catch(e){
+      alert('[등록 실패] 중복된 부서명은 등록할 수 없습니다.')
+      e.target.dName.value="";
+      console.error(e)
+    }
   }
 
   // 수정
@@ -58,14 +63,17 @@ export default function DepartmentManager(prpos) {
     const result = confirm('정말 삭제할까요?');
     if(result == true){
       try{
-        const response = await axios.delete(`http://localhost:8080/api/department/delete?dId=${dId}`);
+        const response = await axios.delete(
+                `http://localhost:8080/api/department/delete?dId=${dId}`
+              );
         if(response.status == 200){
           alert('삭제 성공');
           findAllDep();
-        }else{
-          alert('삭제 실패')
         }
-      }catch(e){console.error(e)}
+      }catch(e){
+        alert('삭제 실패. 해당 부서에 사원이 존재합니다.');
+        console.error(e);
+      }
     }
   }
 

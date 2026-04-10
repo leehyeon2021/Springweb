@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import manager.dto.EmployeeDto;
-import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "employee")

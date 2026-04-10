@@ -14,11 +14,12 @@ export default function EmployeeManager(props) {
   }
   useEffect( () => { findAllDep(); } , [] );
 
+
   // 사원 출력
   const [ empAry , setEmpAry ] = useState([]);
   const findAllEmp = async() => {
     try{
-      const response = await axios.get("http://localhost:8080/api/employee/findAll");
+      const response = await axios.get( "http://localhost:8080/api/employee/findAll" );
       const data = response.data;
       setEmpAry( data );
     }catch(e){console.log(e)}
@@ -44,7 +45,10 @@ export default function EmployeeManager(props) {
       formData.append('uploadFile', uploadFile);
     }
     try{
-      const response = await axios.post("http://localhost:8080/api/employee/add", formData);
+      const response = await axios.post(
+        "http://localhost:8080/api/employee/add"
+        , formData
+      );
       if(response.data == true){
         alert('등록 완료')
         e.target.eName.value="";
@@ -66,7 +70,10 @@ export default function EmployeeManager(props) {
     let eRank = prompt('수정할 직급명을 입력하세요.');
     let obj = {eId, eName , eRank};
     try{
-      const response = await axios.put("http://localhost:8080/api/employee/update", obj);
+      const response = await axios.put(
+        "http://localhost:8080/api/employee/update"
+        , obj
+      );
       if(response.data == true){
         alert('수정 성공');
         findAllEmp();
@@ -81,7 +88,9 @@ export default function EmployeeManager(props) {
     const result = confirm('정말 삭제할까요?');
     if(result == true){
       try{
-        const response = await axios.delete(`http://localhost:8080/api/employee/delete?eId=${eId}`);
+        const response = await axios.delete(
+          `http://localhost:8080/api/employee/delete?eId=${eId}`
+        );
         if(response.status == 200){
           alert('삭제 성공');
           findAllEmp();
@@ -138,7 +147,8 @@ export default function EmployeeManager(props) {
               empAry.map( (emp) => {
                 return(
                   <tr key={emp.eId}>
-                    <td><img src={`http://localhost:8080/upload/${emp.eFile}`} className="img-box" /> </td>
+                    <td><img 
+                      src={emp.eFile} className="img-box" /> </td>
                     <td>{emp.eName}</td>
                     <td>{emp.dName}</td>
                     <td>{emp.eRank}</td>
